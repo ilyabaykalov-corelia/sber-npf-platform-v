@@ -1,0 +1,24 @@
+{
+  "entities": {
+    "Template": [],
+    "Hosts": [
+      {
+        "id": 1,
+        "title": "Sber NPF BFF",
+        "testUrl": "$${BFF_URL}$$",
+        "devUrl": "http://localhost:4000",
+        "prodUrl": "$${BFF_URL}$$",
+        "pathPrefix": "/api"
+      },
+      {
+        "id": 2,
+        "title": "DataSpace",
+        "testUrl": "$${DATASPACE_URL}$$",
+        "devUrl": "$${DATASPACE_URL}$$",
+        "prodUrl": "$${DATASPACE_URL}$$",
+        "pathPrefix": ""
+      }
+    ]
+  },
+  "appId": "{appInstanceId}"
+}

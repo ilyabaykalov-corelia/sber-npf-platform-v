@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "parentPageId": 0,
+      "name": "Договоры ПДС",
+      "routeTemplate": "/",
+      "id": 2,
+      "templateId": 2,
+      "access": "{\"privileges\":{\"core\":[\"PdsContract:read\"]},\"strategy\":\"showNote\",\"warnText\":\"Доступ закрыт\"}"
+    },
+    {
+      "parentPageId": 2,
+      "name": "Создать договор ПДС",
+      "routeTemplate": "/documents/new",
+      "id": 4,
+      "templateId": 2,
+      "access": "{\"privileges\":{\"core\":[\"PdsContract:create\"]},\"strategy\":\"showNote\",\"warnText\":\"Доступ закрыт\"}"
+    },
+    {
+      "parentPageId": 2,
+      "name": "Карточка договора ПДС",
+      "routeTemplate": "/documents/:id",
+      "id": 6,
+      "templateId": 2,
+      "access": "{\"privileges\":{\"core\":[\"PdsContract:read\"]},\"strategy\":\"showNote\",\"warnText\":\"Доступ закрыт\"}"
+    }
+  ]
+}

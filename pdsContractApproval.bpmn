@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:sbt="http://com.sbt/bpms/modeler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Platform V Flow Designer" exporterVersion="0.0.2-796" id="Definitions_pds_contract_approval" targetNamespace="http://com.sbt/bpms/modeler">
+  <bpmn2:itemDefinition id="Element_string" itemKind="Information" structureRef="java.lang.String"/>
+  <bpmn2:process id="Process_pds_contract_approval" isExecutable="true" name="Согласование договора ПДС" sbt:AIAgentProcessMarker="false" sbt:bamProjectId="" sbt:businessFamily="" sbt:contextVisible="false" sbt:enableStrictGatewaysBehavior="true" sbt:externalVersion="1" sbt:processOwner.roleCode="app_owner">
+    <bpmn2:extensionElements>
+      <sbt:processExtensions>
+        <sbt:scopes>
+          <sbt:userScopes>
+            <sbt:scope>PdsContract:create</sbt:scope>
+            <sbt:scope>PdsContract:read</sbt:scope>
+            <sbt:scope>PdsContract:update</sbt:scope>
+            <sbt:scope>PdsContract:approve</sbt:scope>
+          </sbt:userScopes>
+        </sbt:scopes>
+      </sbt:processExtensions>
+    </bpmn2:extensionElements>
+    <bpmn2:property id="Element_pds_record_id" itemSubjectRef="Element_string" name="id"/>
+    <bpmn2:property id="Element_pds_document_id" itemSubjectRef="Element_string" name="documentId"/>
+    <bpmn2:property id="Element_pds_document_type" itemSubjectRef="Element_string" name="documentType"/>
+    <bpmn2:property id="Element_pds_contract_number" itemSubjectRef="Element_string" name="contractNumber"/>
+    <bpmn2:property id="Element_pds_contract_date" itemSubjectRef="Element_string" name="contractDate"/>
+    <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
+    <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Element_pds_tenant" itemSubjectRef="Element_string" name="tenant"/>
+    <bpmn2:property id="Element_pds_tenant_id" itemSubjectRef="Element_string" name="tenantId"/>
+    <bpmn2:property id="Element_pds_app_instance_id" itemSubjectRef="Element_string" name="appInstanceId"/>
+    <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken">
+      <bpmn2:extensionElements>
+        <sbt:metaData name="customTags">
+          <sbt:metaValue>masked</sbt:metaValue>
+        </sbt:metaData>
+      </bpmn2:extensionElements>
+    </bpmn2:property>
+    <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
+      <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:task id="Activity_pds_create" name="Зафиксировать договор ПДС" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Authorization</sbt:name>
+            <sbt:value>Bearer ${accessToken}</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        </sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus } } }]]></sbt:query>
+          <sbt:operationName>createPdsContract</sbt:operationName>
+          <sbt:variables><![CDATA[{
+  "input": {
+    "documentId": ${documentId},
+    "documentType": "PDS_CONTRACT",
+    "contractNumber": ${contractNumber},
+    "contractDate": ${contractDate},
+    "snils": ${snils},
+    "approvalStatus": "CREATED"
+  }
+}]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+        <sbt:graphQLResponseMapping>
+          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createPdsContract.id" sbt:id="Element_pds_map_id" sbt:variableName="id"/>
+          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createPdsContract.documentType.name" sbt:id="Element_pds_map_document_type" sbt:variableName="documentType"/>
+        </sbt:graphQLResponseMapping>
+        <sbt:exceptionErrorMappingList>
+          <sbt:exceptionErrorMapping sbt:id="Element_pds_create_exception" sbt:order="1" xsi:type="sbt:ExceptionErrorMapping">
+            <sbt:bpmnErrorCode>ACTIVITY_EXCEPTION</sbt:bpmnErrorCode>
+            <sbt:exceptionName text="$.errors[*]" xsi:type="sbt:Value">$.errors[*]</sbt:exceptionName>
+          </sbt:exceptionErrorMapping>
+        </sbt:exceptionErrorMappingList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_pds_start_create</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_pds_create_approve</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="Flow_pds_start_create" name="" sourceRef="Event_pds_start" targetRef="Activity_pds_create"/>
+    <bpmn2:sequenceFlow id="Flow_pds_create_approve" name="" sourceRef="Activity_pds_create" targetRef="Activity_pds_approve"/>
+    <bpmn2:userTask activiti:candidateGroups="app_owner,document_operator" activiti:dueDate="PT1H" activiti:formKey="localhost" activiti:priority="99" id="Activity_pds_approve" name="Согласование договора ПДС" sbt:excludedUsers="" sbt:formType="formUrl" sbt:managerRole="admin" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
+      <bpmn2:extensionElements>
+        <sbt:extraAttributes>
+          <sbt:extraAttribute sbt:id="Element_pds_extra_document_id" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
+            <sbt:processVarName>documentId</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>documentId</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>1</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_pds_extra_document_type" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>documentType</sbt:extraAttributeName>
+            <sbt:processVarName>documentType</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>documentType</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>2</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_pds_extra_contract_date" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>contractDate</sbt:extraAttributeName>
+            <sbt:processVarName>contractDate</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[DATE]]></sbt:type>
+            <sbt:code>contractDate</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>3</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_pds_extra_contract_number" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>contractNumber</sbt:extraAttributeName>
+            <sbt:processVarName>contractNumber</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>contractNumber</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>4</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_pds_extra_snils" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>snils</sbt:extraAttributeName>
+            <sbt:processVarName>snils</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>snils</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>5</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+        </sbt:extraAttributes>
+        <sbt:taskListenerList>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_task_listener" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('accessToken',accessToken)};" sbt:id="Element_pds_task_listener_access_token" xsi:type="sbt:TaskListener"/>
+        </sbt:taskListenerList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_pds_create_approve</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_pds_approve_gateway</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="Flow_pds_approve_gateway" name="" sourceRef="Activity_pds_approve" targetRef="Gateway_pds_approval_result"/>
+    <bpmn2:exclusiveGateway default="Flow_pds_approved" id="Gateway_pds_approval_result" name="" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableExclusiveGateway">
+      <bpmn2:incoming>Flow_pds_approve_gateway</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_pds_approved</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_pds_rejected</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:task id="Activity_pds_mark_approved" name="Отметить договор ПДС согласованным" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_approved_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_approved_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_approved_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Authorization</sbt:name>
+            <sbt:value>Bearer ${accessToken}</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        </sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:operationName>updatePdsContract</sbt:operationName>
+          <sbt:variables><![CDATA[{
+  "input": {
+    "id": ${id},
+    "approvalStatus": "APPROVED"
+  }
+}]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+        <sbt:exceptionErrorMappingList>
+          <sbt:exceptionErrorMapping sbt:id="Element_pds_approved_exception" sbt:order="1" xsi:type="sbt:ExceptionErrorMapping">
+            <sbt:bpmnErrorCode>ACTIVITY_EXCEPTION</sbt:bpmnErrorCode>
+            <sbt:exceptionName text="$.errors[*]" xsi:type="sbt:Value">$.errors[*]</sbt:exceptionName>
+          </sbt:exceptionErrorMapping>
+        </sbt:exceptionErrorMappingList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_pds_approved</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_pds_approved_end</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="Flow_pds_approved" name="Согласовано" sourceRef="Gateway_pds_approval_result" targetRef="Activity_pds_mark_approved"/>
+    <bpmn2:endEvent id="Event_pds_approved_end" name="" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableEndEvent">
+      <bpmn2:incoming>Flow_pds_approved_end</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_pds_approved_end" name="" sourceRef="Activity_pds_mark_approved" targetRef="Event_pds_approved_end"/>
+    <bpmn2:task id="Activity_pds_mark_rejected" name="Отметить договор ПДС отклоненным" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_rejected_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_rejected_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_rejected_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Authorization</sbt:name>
+            <sbt:value>Bearer ${accessToken}</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        </sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:operationName>updatePdsContract</sbt:operationName>
+          <sbt:variables><![CDATA[{
+  "input": {
+    "id": ${id},
+    "approvalStatus": "REJECTED"
+  }
+}]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+        <sbt:exceptionErrorMappingList>
+          <sbt:exceptionErrorMapping sbt:id="Element_pds_rejected_exception" sbt:order="1" xsi:type="sbt:ExceptionErrorMapping">
+            <sbt:bpmnErrorCode>ACTIVITY_EXCEPTION</sbt:bpmnErrorCode>
+            <sbt:exceptionName text="$.errors[*]" xsi:type="sbt:Value">$.errors[*]</sbt:exceptionName>
+          </sbt:exceptionErrorMapping>
+        </sbt:exceptionErrorMappingList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_pds_rejected</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_pds_rejected_end</bpmn2:outgoing>
+    </bpmn2:task>
+    <bpmn2:sequenceFlow id="Flow_pds_rejected" name="Отклонено" sourceRef="Gateway_pds_approval_result" targetRef="Activity_pds_mark_rejected">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "REJECTED"}</bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:endEvent id="Event_pds_rejected_end" name="" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableEndEvent">
+      <bpmn2:incoming>Flow_pds_rejected_end</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:sequenceFlow id="Flow_pds_rejected_end" name="" sourceRef="Activity_pds_mark_rejected" targetRef="Event_pds_rejected_end"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="Diagram_pds_contract_approval">
+    <bpmndi:BPMNPlane bpmnElement="Process_pds_contract_approval" id="Plane_pds_contract_approval">
+      <bpmndi:BPMNShape bpmnElement="Event_pds_start" id="Event_pds_start_di">
+        <dc:Bounds height="36" width="36" x="152" y="102"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_create" id="Activity_pds_create_di">
+        <dc:Bounds height="80" width="110" x="240" y="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_approve" id="Activity_pds_approve_di">
+        <dc:Bounds height="80" width="100" x="410" y="80"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_pds_approval_result" id="Gateway_pds_approval_result_di" isMarkerVisible="true">
+        <dc:Bounds height="50" width="50" x="575" y="95"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_approved" id="Activity_pds_mark_approved_di">
+        <dc:Bounds height="80" width="120" x="680" y="20"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_rejected" id="Activity_pds_mark_rejected_di">
+        <dc:Bounds height="80" width="120" x="680" y="150"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_pds_approved_end" id="Event_pds_approved_end_di">
+        <dc:Bounds height="36" width="36" x="862" y="42"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Event_pds_rejected_end" id="Event_pds_rejected_end_di">
+        <dc:Bounds height="36" width="36" x="862" y="172"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_start_create" id="Flow_pds_start_create_di">
+        <di:waypoint x="188" y="120"/>
+        <di:waypoint x="240" y="120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_create_approve" id="Flow_pds_create_approve_di">
+        <di:waypoint x="350" y="120"/>
+        <di:waypoint x="410" y="120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_approve_gateway" id="Flow_pds_approve_gateway_di">
+        <di:waypoint x="510" y="120"/>
+        <di:waypoint x="575" y="120"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_approved" id="Flow_pds_approved_di">
+        <di:waypoint x="600" y="95"/>
+        <di:waypoint x="600" y="60"/>
+        <di:waypoint x="680" y="60"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_rejected" id="Flow_pds_rejected_di">
+        <di:waypoint x="600" y="145"/>
+        <di:waypoint x="600" y="190"/>
+        <di:waypoint x="680" y="190"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_approved_end" id="Flow_pds_approved_end_di">
+        <di:waypoint x="800" y="60"/>
+        <di:waypoint x="862" y="60"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_rejected_end" id="Flow_pds_rejected_end_di">
+        <di:waypoint x="800" y="190"/>
+        <di:waypoint x="862" y="190"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

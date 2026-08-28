@@ -1,0 +1,27 @@
+<model model-name="sber_npf_pds_contracts" version="DEV-SNAPSHOT">
+  <enum name="PdsContractStatus">
+    <value name="CREATED"/>
+    <value name="APPROVED"/>
+    <value name="REJECTED"/>
+  </enum>
+  <class name="DocumentType" is-dictionary="true">
+    <property name="name" type="STRING" length="254"/>
+  </class>
+  <class name="PdsContract" strategy="JOINED">
+    <property name="documentId" type="STRING" length="36"/>
+    <property name="documentType" type="DocumentType"/>
+    <property name="contractDate" type="LOCALDATE"/>
+    <property name="contractNumber" type="STRING" length="64"/>
+    <property name="snils" type="STRING" length="64"/>
+    <property name="approvalStatus" type="PdsContractStatus"/>
+  </class>
+  <class name="Attachment" strategy="JOINED">
+    <property name="attachmentId" type="STRING" length="36"/>
+    <property name="documentId" type="STRING" length="36"/>
+    <property name="fileName" type="STRING" length="1024"/>
+    <property name="contentType" type="STRING" length="254"/>
+    <property name="size" type="LONG"/>
+    <property name="storageReference" type="STRING" length="2048"/>
+    <property name="uploadedAt" type="LOCALDATETIME" length="3"/>
+  </class>
+</model>

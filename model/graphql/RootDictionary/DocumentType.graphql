@@ -1,0 +1,16 @@
+mutation seedDocumentType {
+  dictionaryPacket {
+    updateOrCreateDocumentType(
+      input: {
+        id: "PDS_CONTRACT"
+        name: "Договор ПДС"
+      }
+    ) {
+      created
+      returning {
+        id
+        name
+      }
+    }
+  }
+}

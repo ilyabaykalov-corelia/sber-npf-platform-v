@@ -1,0 +1,37 @@
+[
+  {
+    "name": "upsertDocumentType",
+    "body": "mutation upsertDocumentType($id: ID!, $name: String) { dictionaryPacket { updateOrCreateDocumentType(input: { id: $id, name: $name }) { created returning { id name } } } }",
+    "checkForAnyPrivilege": ["DocumentType:create", "DocumentType:update"]
+  },
+  {
+    "name": "refDocumentTypeListGet",
+    "body": "query refDocumentTypeListGet { searchDocumentType { elems { id name } count } }",
+    "checkForAnyPrivilege": ["DocumentType:read"]
+  },
+  {
+    "name": "searchPdsContract",
+    "body": "query searchPdsContract($offset: Int, $limit: Int, $cond: String, $sort: [_SortCriterionSpecification!]) { searchPdsContract(offset: $offset, limit: $limit, cond: $cond, sort: $sort) { elems { id documentId documentType { id name } contractDate contractNumber snils approvalStatus } count } }",
+    "checkForAnyPrivilege": ["PdsContract:read"]
+  },
+  {
+    "name": "createPdsContract",
+    "body": "mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus } } }",
+    "checkForAnyPrivilege": ["PdsContract:create"]
+  },
+  {
+    "name": "updatePdsContract",
+    "body": "mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }",
+    "checkForAnyPrivilege": ["PdsContract:update"]
+  },
+  {
+    "name": "createAttachment",
+    "body": "mutation createAttachment($input: _CreateAttachmentInput!) { packet { createAttachment(input: $input) { id attachmentId documentId fileName storageReference } } }",
+    "checkForAnyPrivilege": ["Attachment:create"]
+  },
+  {
+    "name": "searchAttachment",
+    "body": "query searchAttachment($cond: String) { searchAttachment(cond: $cond) { elems { id attachmentId documentId fileName contentType size storageReference uploadedAt } count } }",
+    "checkForAnyPrivilege": ["Attachment:read"]
+  }
+]
