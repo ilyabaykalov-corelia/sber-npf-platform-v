@@ -9,6 +9,11 @@
       "name": "document_operator",
       "label": "Оператор документов",
       "global": false
+    },
+    {
+      "name": "approver",
+      "label": "Согласующий",
+      "global": false
     }
   ],
   "scopes": [
@@ -16,9 +21,9 @@
     { "label": "Чтение вида документа", "name": "DocumentType:read", "roles": ["app_owner", "document_operator"] },
     { "label": "Обновление вида документа", "name": "DocumentType:update", "roles": ["app_owner", "document_operator"] },
     { "label": "Создание договора ПДС", "name": "PdsContract:create", "roles": ["app_owner", "document_operator"] },
-    { "label": "Чтение договора ПДС", "name": "PdsContract:read", "roles": ["app_owner", "document_operator"] },
+    { "label": "Чтение договора ПДС", "name": "PdsContract:read", "roles": ["app_owner", "document_operator", "approver"] },
     { "label": "Обновление договора ПДС", "name": "PdsContract:update", "roles": ["app_owner", "document_operator"] },
-    { "label": "Согласование договора ПДС", "name": "PdsContract:approve", "roles": ["app_owner", "document_operator"] },
+    { "label": "Согласование договора ПДС", "name": "PdsContract:approve", "roles": ["app_owner", "document_operator", "approver"] },
     { "label": "Создание вложения", "name": "Attachment:create", "roles": ["app_owner", "document_operator"] },
     { "label": "Чтение вложения", "name": "Attachment:read", "roles": ["app_owner", "document_operator"] },
     { "label": "Чтение текущего пользователя", "name": "CurrentUser:read", "roles": ["app_owner", "document_operator"] }

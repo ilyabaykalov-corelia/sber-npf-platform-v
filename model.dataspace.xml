@@ -1,6 +1,9 @@
 <model model-name="sber_npf_pds_contracts" version="DEV-SNAPSHOT">
   <enum name="PdsContractStatus">
     <value name="CREATED"/>
+    <value name="IN_WORK"/>
+    <value name="ON_APPROVAL"/>
+    <value name="NEEDS_REVISION"/>
     <value name="APPROVED"/>
     <value name="REJECTED"/>
   </enum>
