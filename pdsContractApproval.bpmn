@@ -21,7 +21,6 @@
     <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
     <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
     <bpmn2:property id="Element_pds_assignee" itemSubjectRef="Element_string" name="assignee"/>
-    <bpmn2:property id="Element_pds_assignee_name" itemSubjectRef="Element_string" name="assigneeName"/>
     <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
       <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
@@ -99,7 +98,6 @@
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assigneeName',assigneeName)};" sbt:id="Element_pds_operator_take_listener_assignee_name" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_05tbmkz</bpmn2:incoming>
@@ -190,7 +188,6 @@
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_approver_take_listener_assignee" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assigneeName',assigneeName)};" sbt:id="Element_pds_approver_take_listener_assignee_name" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_on_approval_approver_take</bpmn2:incoming>
