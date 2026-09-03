@@ -21,6 +21,7 @@
     <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
     <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
     <bpmn2:property id="Element_pds_assignee" itemSubjectRef="Element_string" name="assignee"/>
+    <bpmn2:property id="Element_pds_assignee_name" itemSubjectRef="Element_string" name="assigneeName"/>
     <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
       <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
@@ -62,7 +63,7 @@
     </bpmn2:task>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator_take" name="Взять договор ПДС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"take_on","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_operator_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -98,6 +99,7 @@
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assigneeName',assigneeName)};" sbt:id="Element_pds_operator_take_listener_assignee_name" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_05tbmkz</bpmn2:incoming>
@@ -105,7 +107,7 @@
     </bpmn2:userTask>
     <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator" name="Обработка договора ПДС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Передача на согласование","description":null,"editableParameter":null,"options":[{"label":"submit_for_approval","result":{"approvalStatus":"ON_APPROVAL"}},{"label":"reject","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Передача на согласование","description":null,"editableParameter":null,"options":[{"label":"Направить на согласование","result":{"approvalStatus":"ON_APPROVAL"}},{"label":"Отклонить","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_operator_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -152,7 +154,7 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver_take" name="Взять договор ПДС в работу согласующим" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":"assignee","options":[{"label":"take_on","result":{"approvalStatus":"ON_APPROVAL"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"ON_APPROVAL"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_approver_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -188,6 +190,7 @@
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_approver_take_listener_assignee" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assigneeName',assigneeName)};" sbt:id="Element_pds_approver_take_listener_assignee_name" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_on_approval_approver_take</bpmn2:incoming>
@@ -195,7 +198,7 @@
     </bpmn2:userTask>
     <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver" name="Согласование договора ПДС" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_ebhp88r">{"completions":{"title":"Согласование документа","description":null,"editableParameter":null,"options":[{"label":"approved","result":{"approvalStatus":"APPROVED"}},{"label":"needs_revesion","result":{"approvalStatus":"NEEDS_REVISION"}},{"label":"rejected","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_ebhp88r">{"completions":{"title":"Согласование документа","description":null,"editableParameter":null,"options":[{"label":"Согласовать","result":{"approvalStatus":"APPROVED"}},{"label":"Отправить на доработку","result":{"approvalStatus":"NEEDS_REVISION"}},{"label":"Отклонить","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_approver_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -442,11 +445,47 @@
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="Diagram_pds_contract_approval">
     <bpmndi:BPMNPlane bpmnElement="Process_pds_contract_approval" id="Plane_pds_contract_approval">
+      <bpmndi:BPMNShape bpmnElement="Event_pds_start" id="Event_pds_start_di">
+        <dc:Bounds height="36" width="36" x="-148" y="160"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="27" width="86" x="-173" y="196"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_create" id="Activity_pds_create_di">
+        <dc:Bounds height="80" width="125" x="-33" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_operator_take" id="Activity_pds_operator_take_di">
+        <dc:Bounds height="80" width="145" x="357" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_operator" id="Activity_pds_operator_di">
+        <dc:Bounds height="80" width="145" x="897" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Gateway_pds_operator_result" id="Gateway_pds_operator_result_di" isMarkerVisible="true">
+        <dc:Bounds height="50" width="50" x="1125" y="153"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="27" width="54" x="1123" y="116"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_approver_take" id="Activity_pds_approver_take_di">
+        <dc:Bounds height="80" width="145" x="1707" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_approver" id="Activity_pds_approver_di">
+        <dc:Bounds height="80" width="145" x="2007" y="138"/>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Gateway_pds_approver_result" id="Gateway_pds_approver_result_di" isMarkerVisible="true">
         <dc:Bounds height="50" width="50" x="2357" y="153"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="27" width="73" x="2223" y="146"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_in_work" id="Activity_pds_mark_in_work_di">
+        <dc:Bounds height="80" width="145" x="637" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_on_approval" id="Activity_pds_mark_on_approval_di">
+        <dc:Bounds height="80" width="145" x="1367" y="138"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_revision" id="Activity_pds_mark_revision_di">
+        <dc:Bounds height="80" width="145" x="1447" y="300"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_approved" id="Activity_pds_mark_approved_di">
         <dc:Bounds height="80" width="145" x="2472" y="60"/>
@@ -466,44 +505,8 @@
           <dc:Bounds height="27" width="47" x="2672" y="273"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_operator_take" id="Activity_pds_operator_take_di">
-        <dc:Bounds height="80" width="145" x="357" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_in_work" id="Activity_pds_mark_in_work_di">
-        <dc:Bounds height="80" width="145" x="637" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_operator" id="Activity_pds_operator_di">
-        <dc:Bounds height="80" width="145" x="897" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Gateway_pds_operator_result" id="Gateway_pds_operator_result_di" isMarkerVisible="true">
-        <dc:Bounds height="50" width="50" x="1125" y="153"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="27" width="54" x="1123" y="116"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_on_approval" id="Activity_pds_mark_on_approval_di">
-        <dc:Bounds height="80" width="145" x="1367" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_approver_take" id="Activity_pds_approver_take_di">
-        <dc:Bounds height="80" width="145" x="1707" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_approver" id="Activity_pds_approver_di">
-        <dc:Bounds height="80" width="145" x="2007" y="138"/>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="Gateway_19uqg3y" id="Gateway_19uqg3y_di" isMarkerVisible="true">
         <dc:Bounds height="50" width="50" x="205" y="153"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_create" id="Activity_pds_create_di">
-        <dc:Bounds height="80" width="125" x="-33" y="138"/>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Event_pds_start" id="Event_pds_start_di">
-        <dc:Bounds height="36" width="36" x="-148" y="160"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="27" width="86" x="-173" y="196"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="Activity_pds_mark_revision" id="Activity_pds_mark_revision_di">
-        <dc:Bounds height="80" width="145" x="1447" y="300"/>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="Flow_pds_start_create" id="Flow_pds_start_create_di">
         <di:waypoint x="-112" y="178"/>
@@ -523,18 +526,6 @@
           <dc:Bounds height="14" width="77" x="534" y="153"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="Flow_pds_revision_operator_take" id="Flow_pds_revision_operator_take_di">
-        <di:waypoint x="1447" y="340"/>
-        <di:waypoint x="230" y="340"/>
-        <di:waypoint x="230" y="203"/>
-        <bpmndi:BPMNLabel>
-          <dc:Bounds height="14" width="77" x="1951" y="315"/>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="Flow_pds_in_work_operator" id="Flow_pds_in_work_operator_di">
-        <di:waypoint x="782" y="178"/>
-        <di:waypoint x="897" y="178"/>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="Flow_pds_operator_gateway" id="Flow_pds_operator_gateway_di">
         <di:waypoint x="1042" y="178"/>
         <di:waypoint x="1125" y="178"/>
@@ -553,6 +544,10 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="14" width="55" x="1282" y="233"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_in_work_operator" id="Flow_pds_in_work_operator_di">
+        <di:waypoint x="782" y="178"/>
+        <di:waypoint x="897" y="178"/>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="Flow_pds_on_approval_approver_take" id="Flow_pds_on_approval_approver_take_di">
         <di:waypoint x="1512" y="178"/>
@@ -595,6 +590,14 @@
         <di:waypoint x="2472" y="240"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="14" width="55" x="2452" y="189"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_revision_operator_take" id="Flow_pds_revision_operator_take_di">
+        <di:waypoint x="1447" y="340"/>
+        <di:waypoint x="230" y="340"/>
+        <di:waypoint x="230" y="203"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="14" width="77" x="1951" y="315"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="Flow_pds_approved_end" id="Flow_pds_approved_end_di">
