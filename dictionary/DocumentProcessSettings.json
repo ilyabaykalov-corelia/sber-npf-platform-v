@@ -1,0 +1,11 @@
+{
+  "type": "DocumentProcessSettings",
+  "objects": [
+    {
+      "id": "PDS_CONTRACT_PROCESS",
+      "documentType": "PDS_CONTRACT",
+      "processId": "Process_pds_contract_approval",
+      "enabled": true
+    }
+  ]
+}

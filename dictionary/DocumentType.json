@@ -1,0 +1,9 @@
+{
+  "type": "DocumentType",
+  "objects": [
+    {
+      "id": "PDS_CONTRACT",
+      "name": "Договор ПДС"
+    }
+  ]
+}
