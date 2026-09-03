@@ -10,6 +10,11 @@
   <class name="DocumentType" is-dictionary="true">
     <property name="name" type="STRING" length="254"/>
   </class>
+  <class name="DocumentProcessSettings" is-dictionary="true">
+    <property name="documentType" type="DocumentType"/>
+    <property name="processId" type="STRING" length="254"/>
+    <property name="enabled" type="BOOLEAN"/>
+  </class>
   <class name="PdsContract" strategy="JOINED">
     <property name="documentId" type="STRING" length="36"/>
     <property name="documentType" type="DocumentType"/>

@@ -10,6 +10,16 @@
     "checkForAnyPrivilege": ["DocumentType:read"]
   },
   {
+    "name": "upsertDocumentProcessSettings",
+    "body": "mutation upsertDocumentProcessSettings($id: ID!, $documentType: ID!, $processId: String, $enabled: Boolean) { dictionaryPacket { updateOrCreateDocumentProcessSettings(input: { id: $id, documentType: $documentType, processId: $processId, enabled: $enabled }) { created returning { id documentType { id name } processId enabled } } } }",
+    "checkForAnyPrivilege": ["DocumentProcessSettings:create", "DocumentProcessSettings:update"]
+  },
+  {
+    "name": "searchDocumentProcessSettings",
+    "body": "query searchDocumentProcessSettings($offset: Int, $limit: Int, $cond: String) { searchDocumentProcessSettings(offset: $offset, limit: $limit, cond: $cond) { elems { id documentType { id name } processId enabled } count } }",
+    "checkForAnyPrivilege": ["DocumentProcessSettings:read"]
+  },
+  {
     "name": "searchPdsContract",
     "body": "query searchPdsContract($offset: Int, $limit: Int, $cond: String, $sort: [_SortCriterionSpecification!]) { searchPdsContract(offset: $offset, limit: $limit, cond: $cond, sort: $sort) { elems { id documentId documentType { id name } contractDate contractNumber snils approvalStatus } count } }",
     "checkForAnyPrivilege": ["PdsContract:read"]
