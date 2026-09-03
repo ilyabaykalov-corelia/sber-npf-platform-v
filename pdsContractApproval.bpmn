@@ -20,6 +20,7 @@
     <bpmn2:property id="Element_pds_contract_date" itemSubjectRef="Element_string" name="contractDate"/>
     <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
     <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Element_pds_assignee" itemSubjectRef="Element_string" name="assignee"/>
     <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
       <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
@@ -61,7 +62,7 @@
     </bpmn2:task>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator_take" name="Взять договор ПДС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","options":[{"label":"take_on","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"take_on","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_operator_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -96,13 +97,13 @@
         </sbt:extraAttributes>
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('accessToken',accessToken)};" sbt:id="Element_pds_operator_take_listener_token" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_05tbmkz</bpmn2:incoming>
       <bpmn2:outgoing>Flow_pds_operator_take_mark_in_work</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator" name="Обработка договора ПДС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
+    <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator" name="Обработка договора ПДС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
         <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Передача на согласование","description":null,"editableParameter":null,"options":[{"label":"submit_for_approval","result":{"approvalStatus":"ON_APPROVAL"}},{"label":"reject","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
@@ -139,7 +140,6 @@
         </sbt:extraAttributes>
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_listener_status" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('accessToken',accessToken)};" sbt:id="Element_pds_operator_listener_token" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_in_work_operator</bpmn2:incoming>
@@ -152,7 +152,7 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver_take" name="Взять договор ПДС в работу согласующим" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":null,"options":[{"label":"take_on","result":{"approvalStatus":"ON_APPROVAL"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":"assignee","options":[{"label":"take_on","result":{"approvalStatus":"ON_APPROVAL"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_approver_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -187,13 +187,13 @@
         </sbt:extraAttributes>
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_take_listener_status" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('accessToken',accessToken)};" sbt:id="Element_pds_approver_take_listener_token" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_approver_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_on_approval_approver_take</bpmn2:incoming>
       <bpmn2:outgoing>Flow_pds_approver_take_approver</bpmn2:outgoing>
     </bpmn2:userTask>
-    <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver" name="Согласование договора ПДС" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
+    <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver" name="Согласование договора ПДС" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
         <sbt:externalDescription sbt:id="Element_ebhp88r">{"completions":{"title":"Согласование документа","description":null,"editableParameter":null,"options":[{"label":"approved","result":{"approvalStatus":"APPROVED"}},{"label":"needs_revesion","result":{"approvalStatus":"NEEDS_REVISION"}},{"label":"rejected","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
@@ -230,7 +230,6 @@
         </sbt:extraAttributes>
         <sbt:taskListenerList>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_listener_status" xsi:type="sbt:TaskListener"/>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('accessToken',accessToken)};" sbt:id="Element_pds_approver_listener_token" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_approver_take_approver</bpmn2:incoming>
