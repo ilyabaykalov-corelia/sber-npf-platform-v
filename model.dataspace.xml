@@ -24,6 +24,7 @@
     <property name="snils" type="STRING" length="64"/>
     <property name="approvalStatus" type="PdsContractStatus"/>
     <property name="createdBy" type="STRING" length="254"/>
+    <property name="createdAt" type="LOCALDATETIME" length="3"/>
     <property name="assignee" type="STRING" length="254"/>
   </class>
   <class name="Attachment" strategy="JOINED">

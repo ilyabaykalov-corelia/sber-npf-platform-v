@@ -21,12 +21,12 @@
   },
   {
     "name": "searchPdsContract",
-    "body": "query searchPdsContract($offset: Int, $limit: Int, $cond: String, $sort: [_SortCriterionSpecification!]) { searchPdsContract(offset: $offset, limit: $limit, cond: $cond, sort: $sort) { elems { id documentId documentType { id name } contractDate contractNumber snils approvalStatus createdBy assignee } count } }",
+    "body": "query searchPdsContract($offset: Int, $limit: Int, $cond: String, $sort: [_SortCriterionSpecification!]) { searchPdsContract(offset: $offset, limit: $limit, cond: $cond, sort: $sort) { elems { id documentId documentType { id name } contractDate contractNumber snils approvalStatus createdBy createdAt assignee } count } }",
     "checkForAnyPrivilege": ["PdsContract:read"]
   },
   {
     "name": "createPdsContract",
-    "body": "mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus createdBy assignee } } }",
+    "body": "mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus createdBy createdAt assignee } } }",
     "checkForAnyPrivilege": ["PdsContract:create"]
   },
   {
