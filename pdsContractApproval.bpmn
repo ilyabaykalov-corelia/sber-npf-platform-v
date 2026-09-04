@@ -20,6 +20,7 @@
     <bpmn2:property id="Element_pds_contract_date" itemSubjectRef="Element_string" name="contractDate"/>
     <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
     <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Element_pds_created_by" itemSubjectRef="Element_string" name="createdBy"/>
     <bpmn2:property id="Element_pds_assignee" itemSubjectRef="Element_string" name="assignee"/>
     <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
@@ -48,9 +49,9 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createPdsContract($input: _CreatePdsContractInput!) { packet { createPdsContract(input: $input) { id documentId documentType { id name } contractDate contractNumber snils approvalStatus createdBy assignee } } }]]></sbt:query>
           <sbt:operationName>createPdsContract</sbt:operationName>
-          <sbt:variables><![CDATA[{ "input": { "documentId": ${documentId}, "documentType": "PDS_CONTRACT", "contractNumber": ${contractNumber}, "contractDate": ${contractDate}, "snils": ${snils}, "approvalStatus": "CREATED" } }]]></sbt:variables>
+          <sbt:variables><![CDATA[{ "input": { "documentId": ${documentId}, "documentType": "PDS_CONTRACT", "contractNumber": ${contractNumber}, "contractDate": ${contractDate}, "snils": ${snils}, "approvalStatus": "CREATED", "createdBy": ${createdBy} } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
         <sbt:graphQLResponseMapping>
           <sbt:mappingItem sbt:expression="@RESULT.data.packet.createPdsContract.id" sbt:id="Element_pds_map_id" sbt:variableName="id"/>
@@ -264,9 +265,9 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
           <sbt:operationName>updatePdsContract</sbt:operationName>
-          <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "IN_WORK" } }]]></sbt:variables>
+          <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "IN_WORK", "assignee": ${assignee} } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_operator_take_mark_in_work</bpmn2:incoming>
@@ -295,7 +296,7 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
           <sbt:operationName>updatePdsContract</sbt:operationName>
           <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "ON_APPROVAL" } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
@@ -326,7 +327,7 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
           <sbt:operationName>updatePdsContract</sbt:operationName>
           <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "NEEDS_REVISION" } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
@@ -357,7 +358,7 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
           <sbt:operationName>updatePdsContract</sbt:operationName>
           <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "APPROVED" } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
@@ -388,7 +389,7 @@
           </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus } } }]]></sbt:query>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
           <sbt:operationName>updatePdsContract</sbt:operationName>
           <sbt:variables><![CDATA[{ "input": { "id": ${id}, "approvalStatus": "REJECTED" } }]]></sbt:variables>
         </sbt:graphQLRequestBody>
