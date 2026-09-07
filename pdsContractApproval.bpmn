@@ -23,7 +23,6 @@
     <bpmn2:property id="Element_pds_created_by" itemSubjectRef="Element_string" name="createdBy"/>
     <bpmn2:property id="Element_pds_created_at" itemSubjectRef="Element_string" name="createdAt"/>
     <bpmn2:property id="Element_pds_assignee" itemSubjectRef="Element_string" name="assignee"/>
-    <bpmn2:property id="Element_pds_access_token" itemSubjectRef="Element_string" name="accessToken"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
       <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
     </bpmn2:startEvent>
@@ -39,12 +38,6 @@
           <sbt:httpHeader sbt:id="HTTPHeader_pds_create_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
             <sbt:name>Accept</sbt:name>
             <sbt:value>application/graphql-response+json</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
@@ -258,12 +251,6 @@
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_in_work_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
           <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
@@ -286,12 +273,6 @@
           <sbt:httpHeader sbt:id="HTTPHeader_pds_on_approval_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
             <sbt:name>Accept</sbt:name>
             <sbt:value>application/graphql-response+json</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_on_approval_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
@@ -320,12 +301,6 @@
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_revision_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
           <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
@@ -351,12 +326,6 @@
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_approved_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
           <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id approvalStatus assignee } } }]]></sbt:query>
@@ -379,12 +348,6 @@
           <sbt:httpHeader sbt:id="HTTPHeader_pds_rejected_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
             <sbt:name>Accept</sbt:name>
             <sbt:value>application/graphql-response+json</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_rejected_authorization" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Authorization</sbt:name>
-            <sbt:value>Bearer ${accessToken}</sbt:value>
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
