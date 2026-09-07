@@ -1,5 +1,4 @@
 <model model-name="sber_npf_pds_contracts" version="1.0.2-SNAPSHOT">
-  <import type="DICTIONARY_GENERATOR" file="./dictionary"/>
   <enum name="PdsContractStatus">
     <value name="CREATED"/>
     <value name="IN_WORK"/>
