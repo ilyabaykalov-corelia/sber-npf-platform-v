@@ -1,4 +1,4 @@
-<model model-name="sber_npf_pds_contracts" version="1.0.2-SNAPSHOT">
+<model model-name="sber_npf_pds_contracts" version="1.1.0-SNAPSHOT">
   <enum name="PdsContractStatus">
     <value name="CREATED"/>
     <value name="IN_WORK"/>
@@ -16,14 +16,38 @@
     <property name="enabled" type="BOOLEAN"/>
   </class>
   <class name="PdsContract" strategy="JOINED">
+    <property name="versions" type="PdsContractVersion" collection="set" mappedBy="document"/>
+    <property name="commands" type="DocumentCommand" collection="set" mappedBy="document"/>
     <property name="documentId" type="STRING" length="36"/>
     <property name="documentType" type="DocumentType"/>
     <property name="contractDate" type="LOCALDATE"/>
     <property name="contractNumber" type="STRING" length="64"/>
     <property name="snils" type="STRING" length="64"/>
+    <property name="version" type="INTEGER"/>
+    <property name="changeToken" type="STRING" length="36"/>
     <property name="approvalStatus" type="PdsContractStatus"/>
     <property name="createdBy" type="STRING" length="254"/>
     <property name="createdAt" type="LOCALDATETIME" length="3"/>
+  </class>
+  <!-- Application versions; deliberately independent of DataSpace historization. -->
+  <class name="PdsContractVersion" strategy="JOINED">
+    <property name="document" type="PdsContract" parent="true"/>
+    <property name="documentId" type="STRING" length="36" index="true"/>
+    <property name="version" type="INTEGER"/>
+    <property name="contractDate" type="LOCALDATE"/>
+    <property name="contractNumber" type="STRING" length="64"/>
+    <property name="snils" type="STRING" length="64"/>
+    <property name="attachments" type="Text"/>
+    <property name="createdBy" type="STRING" length="254"/>
+    <property name="createdAt" type="LOCALDATETIME" length="3"/>
+    <property name="closedAt" type="LOCALDATETIME" length="3"/>
+    <index unique="true"><property name="document"/><property name="version"/></index>
+  </class>
+  <class name="DocumentCommand" strategy="JOINED">
+    <property name="document" type="PdsContract" parent="true"/>
+    <property name="commandKey" type="STRING" length="64" unique="true"/>
+    <property name="requestHash" type="STRING" length="64"/>
+    <property name="response" type="Text"/>
   </class>
   <class name="Attachment" strategy="JOINED">
     <property name="attachmentId" type="STRING" length="36"/>
