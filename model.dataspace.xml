@@ -7,8 +7,13 @@
     <value name="APPROVED"/>
     <value name="REJECTED"/>
   </enum>
+  <enum name="KidOpsStatus">
+    <value name="CREATED"/>
+    <value name="IN_WORK"/>
+    <value name="STORED"/>
+  </enum>
   <class name="DocumentType" is-dictionary="true">
-    <property name="name" type="STRING" length="254"/>
+    <property name="name" type="STRING" length="255"/>
   </class>
   <class name="DocumentProcessSettings" is-dictionary="true">
     <property name="documentType" type="DocumentType"/>
@@ -18,6 +23,7 @@
   <class name="Document" strategy="JOINED">
     <property name="versions" type="DocumentVersion" collection="set" mappedBy="document"/>
     <property name="commands" type="DocumentCommand" collection="set" mappedBy="document"/>
+    <property name="kidOps" type="KidOps" mappedBy="document"/>
     <property name="pdsContract" type="PdsContract" mappedBy="document"/>
     <property name="documentId" type="STRING" length="36" unique="true"/>
     <property name="documentType" type="DocumentType"/>
@@ -32,6 +38,17 @@
     <property name="contractNumber" type="STRING" length="64"/>
     <property name="snils" type="STRING" length="64"/>
     <property name="status" type="PdsContractStatus"/>
+  </class>
+  <class name="KidOps" strategy="JOINED">
+    <property name="document" type="Document" parent="true" unique="true"/>
+    <property name="contractNumber" type="STRING" length="64"/>
+    <property name="contractDate" type="LOCALDATE"/>
+    <property name="signingYear" type="INTEGER"/>
+    <property name="lastName" type="STRING" length="40"/>
+    <property name="firstName" type="STRING" length="255"/>
+    <property name="middleName" type="STRING" length="256"/>
+    <property name="snils" type="STRING" length="14"/>
+    <property name="status" type="KidOpsStatus"/>
   </class>
   <!-- Application snapshots shared by all document types; not DataSpace historization. -->
   <class name="DocumentVersion" strategy="JOINED">

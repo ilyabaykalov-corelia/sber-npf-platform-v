@@ -32,6 +32,10 @@
     { "label": "Замена вложения", "name": "Attachment:update", "roles": ["app_owner", "document_operator"] },
     { "label": "Удаление вложения", "name": "Attachment:delete", "roles": ["app_owner", "document_operator"] },
     { "label": "Чтение текущего пользователя", "name": "CurrentUser:read", "roles": ["app_owner", "document_operator"] },
-    { "label": "Изменение версий документа и состава вложений", "name": "DocumentVersion:commit", "roles": ["app_owner", "document_operator"] }
+    { "label": "Изменение версий документа и состава вложений", "name": "DocumentVersion:commit", "roles": ["app_owner", "document_operator"] },
+    {"name": "Document:read", "label": "Чтение общей карточки документа", "roles": ["app_owner", "document_operator", "approver"]},
+    {"name": "KidOps:create", "label": "Создание КИД ОПС", "roles": ["app_owner", "document_operator"]},
+    {"name": "KidOps:read", "label": "Чтение КИД ОПС", "roles": ["app_owner", "document_operator"]},
+    {"name": "KidOps:update", "label": "Изменение КИД ОПС", "roles": ["app_owner", "document_operator"]}
   ]
 }

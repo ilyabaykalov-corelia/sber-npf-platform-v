@@ -4,6 +4,10 @@
     {
       "id": "PDS_CONTRACT",
       "name": "Договор ПДС"
+    },
+    {
+      "id": "KID_OPS",
+      "name": "КИД ОПС"
     }
   ]
 }

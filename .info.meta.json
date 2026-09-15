@@ -1,13 +1,14 @@
 {
   "files": [
-    { "path": "/model.dataspace.xml", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/dictionary/DocumentType.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/dictionary/DocumentProcessSettings.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/ac.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/model.graphql-permissions.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/pdsContractApproval.bpmn", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/model/graphql/env.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/lcui/routes.json", "fileVersion": "v. 1", "createdBy": "app_owner" },
-    { "path": "/lcui/main.json", "fileVersion": "v. 1", "createdBy": "app_owner" }
+    {"path": "/model.dataspace.xml", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/dictionary/DocumentType.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/dictionary/DocumentProcessSettings.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/ac.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/model.graphql-permissions.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/pdsContractApproval.bpmn", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/model/graphql/env.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/lcui/routes.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/lcui/main.json", "fileVersion": "v. 1", "createdBy": "app_owner"},
+    {"path": "/kidOpsStorage.bpmn", "fileVersion": "v. 1", "createdBy": "app_owner"}
   ]
 }

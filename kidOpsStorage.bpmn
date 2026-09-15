@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?><bpmn2:definitions xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:sbt="http://com.sbt/bpms/modeler" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exporter="Platform V Flow Designer" exporterVersion="0.0.2-980" id="Definitions_kid_ops_storage" targetNamespace="http://com.sbt/bpms/modeler">
+  <bpmn2:itemDefinition id="Element_string" itemKind="Information" structureRef="java.lang.String"/>
+  <bpmn2:itemDefinition id="Element_integer" itemKind="Information" structureRef="java.lang.Integer"/>
+  <bpmn2:itemDefinition id="Element_long" itemKind="Information" structureRef="java.lang.Long"/>
+  <bpmn2:process id="Process_kid_ops_storage" isExecutable="true" name="Хранение КИД ОПС" sbt:contextVisible="false" sbt:enableStrictGatewaysBehavior="true" sbt:externalVersion="1" sbt:processOwner.roleCode="app_owner">
+    <bpmn2:extensionElements><sbt:processExtensions><sbt:scopes><sbt:userScopes><sbt:scope>KidOps:create</sbt:scope><sbt:scope>KidOps:read</sbt:scope><sbt:scope>KidOps:update</sbt:scope></sbt:userScopes></sbt:scopes></sbt:processExtensions></bpmn2:extensionElements>
+    <bpmn2:property id="Property_kid_id" itemSubjectRef="Element_string" name="id"/>
+    <bpmn2:property id="Property_kid_documentId" itemSubjectRef="Element_string" name="documentId"/>
+    <bpmn2:property id="Property_kid_documentType" itemSubjectRef="Element_string" name="documentType"/>
+    <bpmn2:property id="Property_kid_contractNumber" itemSubjectRef="Element_string" name="contractNumber"/>
+    <bpmn2:property id="Property_kid_contractDate" itemSubjectRef="Element_string" name="contractDate"/>
+    <bpmn2:property id="Property_kid_signingYear" itemSubjectRef="Element_integer" name="signingYear"/>
+    <bpmn2:property id="Property_kid_lastName" itemSubjectRef="Element_string" name="lastName"/>
+    <bpmn2:property id="Property_kid_firstName" itemSubjectRef="Element_string" name="firstName"/>
+    <bpmn2:property id="Property_kid_middleName" itemSubjectRef="Element_string" name="middleName"/>
+    <bpmn2:property id="Property_kid_snils" itemSubjectRef="Element_string" name="snils"/>
+    <bpmn2:property id="Property_kid_approvalStatus" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Property_kid_createdBy" itemSubjectRef="Element_string" name="createdBy"/>
+    <bpmn2:property id="Property_kid_createdAt" itemSubjectRef="Element_string" name="createdAt"/>
+    <bpmn2:property id="Property_kid_assignee" itemSubjectRef="Element_string" name="assignee"/>
+    <bpmn2:property id="Property_kid_initial_attachmentId" itemSubjectRef="Element_string" name="initial_attachmentId"/>
+    <bpmn2:property id="Property_kid_initial_fileName" itemSubjectRef="Element_string" name="initial_fileName"/>
+    <bpmn2:property id="Property_kid_initial_contentType" itemSubjectRef="Element_string" name="initial_contentType"/>
+    <bpmn2:property id="Property_kid_initial_size" itemSubjectRef="Element_long" name="initial_size"/>
+    <bpmn2:property id="Property_kid_initial_storageReference" itemSubjectRef="Element_string" name="initial_storageReference"/>
+    <bpmn2:property id="Property_kid_initial_uploadedAt" itemSubjectRef="Element_string" name="initial_uploadedAt"/>
+    <bpmn2:property id="Property_kid_creationKey" itemSubjectRef="Element_string" name="creationKey"/>
+    <bpmn2:property id="Property_kid_creationHash" itemSubjectRef="Element_string" name="creationHash"/>
+<bpmn2:startEvent id="Event_kid_start" name="Создать КИД ОПС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent"><bpmn2:outgoing>Flow_kid_1</bpmn2:outgoing></bpmn2:startEvent>
+<bpmn2:task id="Activity_kid_create" name="Зафиксировать КИД ОПС" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_create_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_create_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        <sbt:httpHeader sbt:id="HTTPHeader_kid_multi" sbt:required="true" xsi:type="sbt:HTTPHeader"><sbt:name>X-DSPC-multiaggregate</sbt:name><sbt:value>true</sbt:value><sbt:type><![CDATA[java.lang.String]]></sbt:type><sbt:source>expression</sbt:source></sbt:httpHeader></sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createKidOps($document: _CreateDocumentInput!, $input: _CreateKidOpsInput!, $file: _CreateAttachmentInput!, $command: _CreateDocumentCommandInput!) { packet { createDocument(input: $document) { id documentId documentType { id name } } createKidOps(input: $input) { id status } createAttachment(input: $file) { id } createDocumentCommand(input: $command) { id } } }]]></sbt:query>
+          <sbt:operationName>createKidOps</sbt:operationName>
+          <sbt:variables><![CDATA[{ "document": { "documentId": ${documentId}, "documentType": "KID_OPS", "createdBy": ${createdBy}, "createdAt": ${createdAt} }, "input": { "document": "ref:createDocument", "contractNumber": ${contractNumber}, "contractDate": ${contractDate}, "signingYear": ${signingYear}, "lastName": ${lastName}, "firstName": ${firstName}, "middleName": ${middleName}, "snils": ${snils}, "status": "CREATED" }, "file": { "attachmentId": ${initial_attachmentId}, "logicalAttachmentId": ${initial_attachmentId}, "documentId": ${documentId}, "fileName": ${initial_fileName}, "contentType": ${initial_contentType}, "size": ${initial_size}, "storageReference": ${initial_storageReference}, "version": 1, "current": true, "uploadedAt": ${initial_uploadedAt} }, "command": { "document": "ref:createDocument", "commandKey": ${creationKey}, "requestHash": ${creationHash}, "response": "{}" } }]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+        <sbt:graphQLResponseMapping>
+          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createKidOps.id" sbt:id="Element_kid_map_id" sbt:variableName="id"/>
+          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createDocument.documentType.id" sbt:id="Element_kid_map_document_type" sbt:variableName="documentType"/>
+        </sbt:graphQLResponseMapping>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_kid_1</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_kid_2</bpmn2:outgoing>
+    </bpmn2:task>
+<bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_kid_take" name="Взять КИД ОПС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
+      <bpmn2:extensionElements>
+        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
+        <sbt:extraAttributes>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
+            <sbt:processVarName>documentId</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>documentId</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>1</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_take_extra_contract_number" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>contractNumber</sbt:extraAttributeName>
+            <sbt:processVarName>contractNumber</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>contractNumber</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>2</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_take_extra_snils" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>snils</sbt:extraAttributeName>
+            <sbt:processVarName>snils</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>snils</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>3</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+        <sbt:extraAttribute sbt:id="Element_kid_take_document_type" xsi:type="sbt:ExtraAttribute"><sbt:extraAttributeName>documentType</sbt:extraAttributeName><sbt:processVarName>documentType</sbt:processVarName><sbt:documentation/><sbt:type><![CDATA[STRING]]></sbt:type><sbt:code>documentType</sbt:code><sbt:visibility>visible</sbt:visibility><sbt:order>4</sbt:order><sbt:linked>false</sbt:linked></sbt:extraAttribute></sbt:extraAttributes>
+        <sbt:taskListenerList>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_kid_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_kid_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
+        </sbt:taskListenerList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_kid_2</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_kid_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+<bpmn2:task id="Activity_kid_in_work" name="Отметить КИД ОПС взятым в работу" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_in_work_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_in_work_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        </sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updateKidOps($input: _UpdateKidOpsInput!) { packet { updateKidOps(input: $input) { id status } } }]]></sbt:query>
+          <sbt:operationName>updateKidOps</sbt:operationName>
+          <sbt:variables><![CDATA[{ "input": { "id": ${id}, "status": "IN_WORK" } }]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_kid_3</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_kid_4</bpmn2:outgoing>
+    </bpmn2:task>
+<bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_kid_work" name="Обработка КИД ОПС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
+      <bpmn2:extensionElements>
+        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Отправка на хранение","description":null,"editableParameter":null,"options":[{"label":"Отправить на хранение","result":{"approvalStatus":"STORED"}}]}}</sbt:externalDescription>
+        <sbt:extraAttributes>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_extra_document_id" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
+            <sbt:processVarName>documentId</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>documentId</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>1</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_extra_contract_number" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>contractNumber</sbt:extraAttributeName>
+            <sbt:processVarName>contractNumber</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>contractNumber</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>2</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+          <sbt:extraAttribute sbt:id="Element_kid_operator_extra_snils" xsi:type="sbt:ExtraAttribute">
+            <sbt:extraAttributeName>snils</sbt:extraAttributeName>
+            <sbt:processVarName>snils</sbt:processVarName>
+            <sbt:documentation/>
+            <sbt:type><![CDATA[STRING]]></sbt:type>
+            <sbt:code>snils</sbt:code>
+            <sbt:visibility>visible</sbt:visibility>
+            <sbt:order>3</sbt:order>
+            <sbt:linked>false</sbt:linked>
+          </sbt:extraAttribute>
+        <sbt:extraAttribute sbt:id="Element_kid_work_document_type" xsi:type="sbt:ExtraAttribute"><sbt:extraAttributeName>documentType</sbt:extraAttributeName><sbt:processVarName>documentType</sbt:processVarName><sbt:documentation/><sbt:type><![CDATA[STRING]]></sbt:type><sbt:code>documentType</sbt:code><sbt:visibility>visible</sbt:visibility><sbt:order>4</sbt:order><sbt:linked>false</sbt:linked></sbt:extraAttribute></sbt:extraAttributes>
+        <sbt:taskListenerList>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_kid_operator_listener_status" xsi:type="sbt:TaskListener"/>
+        </sbt:taskListenerList>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_kid_4</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_kid_5</bpmn2:outgoing>
+    </bpmn2:userTask>
+<bpmn2:task id="Activity_kid_stored" name="Отметить КИД ОПС отправленным на хранение" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
+      <bpmn2:extensionElements>
+        <sbt:httpHeaderList>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_approved_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Content-Type</sbt:name>
+            <sbt:value>application/json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_kid_approved_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
+            <sbt:name>Accept</sbt:name>
+            <sbt:value>application/graphql-response+json</sbt:value>
+            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
+            <sbt:source>expression</sbt:source>
+          </sbt:httpHeader>
+        </sbt:httpHeaderList>
+        <sbt:graphQLRequestBody>
+          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation updateKidOps($input: _UpdateKidOpsInput!) { packet { updateKidOps(input: $input) { id status } } }]]></sbt:query>
+          <sbt:operationName>updateKidOps</sbt:operationName>
+          <sbt:variables><![CDATA[{ "input": { "id": ${id}, "status": "STORED" } }]]></sbt:variables>
+        </sbt:graphQLRequestBody>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>Flow_kid_5</bpmn2:incoming>
+      <bpmn2:outgoing>Flow_kid_6</bpmn2:outgoing>
+    </bpmn2:task>
+<bpmn2:endEvent id="Event_kid_end" name="На хранении"><bpmn2:incoming>Flow_kid_6</bpmn2:incoming></bpmn2:endEvent>
+<bpmn2:sequenceFlow id="Flow_kid_1" sourceRef="Event_kid_start" targetRef="Activity_kid_create"/>
+<bpmn2:sequenceFlow id="Flow_kid_2" sourceRef="Activity_kid_create" targetRef="Activity_kid_take"/>
+<bpmn2:sequenceFlow id="Flow_kid_3" sourceRef="Activity_kid_take" targetRef="Activity_kid_in_work"/>
+<bpmn2:sequenceFlow id="Flow_kid_4" sourceRef="Activity_kid_in_work" targetRef="Activity_kid_work"/>
+<bpmn2:sequenceFlow id="Flow_kid_5" sourceRef="Activity_kid_work" targetRef="Activity_kid_stored"/>
+<bpmn2:sequenceFlow id="Flow_kid_6" sourceRef="Activity_kid_stored" targetRef="Event_kid_end"/>
+</bpmn2:process>
+<bpmndi:BPMNDiagram id="Diagram_kid"><bpmndi:BPMNPlane id="Plane_kid" bpmnElement="Process_kid_ops_storage"><bpmndi:BPMNShape id="Shape_Event_kid_start" bpmnElement="Event_kid_start"><dc:Bounds x="70" y="122" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Activity_kid_create" bpmnElement="Activity_kid_create"><dc:Bounds x="260" y="100" width="140" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Activity_kid_take" bpmnElement="Activity_kid_take"><dc:Bounds x="450" y="100" width="140" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Activity_kid_in_work" bpmnElement="Activity_kid_in_work"><dc:Bounds x="640" y="100" width="140" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Activity_kid_work" bpmnElement="Activity_kid_work"><dc:Bounds x="830" y="100" width="140" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Activity_kid_stored" bpmnElement="Activity_kid_stored"><dc:Bounds x="1020" y="100" width="140" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_Event_kid_end" bpmnElement="Event_kid_end"><dc:Bounds x="1210" y="122" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_kid_1" bpmnElement="Flow_kid_1"><di:waypoint x="106" y="140"/><di:waypoint x="260" y="140"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_kid_2" bpmnElement="Flow_kid_2"><di:waypoint x="400" y="140"/><di:waypoint x="450" y="140"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_kid_3" bpmnElement="Flow_kid_3"><di:waypoint x="590" y="140"/><di:waypoint x="640" y="140"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_kid_4" bpmnElement="Flow_kid_4"><di:waypoint x="780" y="140"/><di:waypoint x="830" y="140"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_kid_5" bpmnElement="Flow_kid_5"><di:waypoint x="970" y="140"/><di:waypoint x="1020" y="140"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_kid_6" bpmnElement="Flow_kid_6"><di:waypoint x="1160" y="140"/><di:waypoint x="1210" y="140"/></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn2:definitions>
