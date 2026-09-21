@@ -8,14 +8,11 @@
 | [model.dataspace.xml](../model.dataspace.xml) | Модель sber_npf_pds_contracts, версия 1.1.0-SNAPSHOT |
 | [model.graphql-permissions.json](../model.graphql-permissions.json) | Разрешённые именованные операции, полные тела, условия доступа |
 | [ac.json](../ac.json) | Роли и scopes |
-| [DocumentType.json](../dictionary/DocumentType.json) | PDS_CONTRACT и KID_OPS |
-| [DocumentProcessSettings.json](../dictionary/DocumentProcessSettings.json) | Соответствие видов включённым процессам |
 | [pdsContractApproval.bpmn](../pdsContractApproval.bpmn) | Согласование ПДС |
 | [kidOpsStorage.bpmn](../kidOpsStorage.bpmn) | Обработка и хранение КИД ОПС |
 | [env.json](../model/graphql/env.json) | Конфигурация GraphQL-окружения ds |
 | [lcui/main.json](../lcui/main.json), [routes.json](../lcui/routes.json) | Сохранённые настройки low-code UI |
 | [package-platform-v.sh](../scripts/package-platform-v.sh) | Упаковка по манифесту |
-| [seed-dictionaries.sh](../scripts/seed-dictionaries.sh) | Ограниченная загрузка первых записей справочников |
 
 ## Модель хранения
 
@@ -60,7 +57,7 @@ ac.json объявляет app_owner, document_operator, approver. Наприм�
 
 LCUI Hosts содержит BFF с devUrl localhost:4000 и pathPrefix /api; routes описывает только ПДС. Это фактическое содержимое поставки, не актуальная схема React → Corelia на /api/core/v1. Файлы входят в манифест и не удалены при документировании: изменение их назначения требует отдельной проверки потребителей.
 
-seed-dictionaries.sh читает .env архивного BFF, затем .env платформы; обрабатывает только objects[0] обоих JSON. В скрипте есть присваивания учётных данных поверх окружения. Значения здесь намеренно не воспроизводятся. Этот скрипт не обеспечивает загрузку КИД ОПС и не должен описываться как универсальный актуальный bootstrap.
+Справочники DocumentType и DocumentProcessSettings загружаются GraphQL-запросами через конструктор Platform V. Legacy seed-скрипт и его локальные данные удалены.
 
 ## Добавление вида
 
