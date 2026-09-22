@@ -26,7 +26,7 @@
     <bpmn2:property id="Property_kid_initial_uploadedAt" itemSubjectRef="Element_string" name="initial_uploadedAt"/>
     <bpmn2:property id="Property_kid_creationKey" itemSubjectRef="Element_string" name="creationKey"/>
     <bpmn2:property id="Property_kid_creationHash" itemSubjectRef="Element_string" name="creationHash"/>
-<bpmn2:startEvent id="Event_kid_start" name="Создать КИД ОПС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent"><bpmn2:outgoing>Flow_kid_1</bpmn2:outgoing></bpmn2:startEvent>
+<bpmn2:startEvent id="Event_kid_start" name="Создать КИД ОПС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent"><bpmn2:outgoing>Flow_kid_start_take</bpmn2:outgoing></bpmn2:startEvent>
 <bpmn2:task id="Activity_kid_create" name="Зафиксировать КИД ОПС" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
       <bpmn2:extensionElements>
         <sbt:httpHeaderList>
@@ -192,8 +192,7 @@
       <bpmn2:outgoing>Flow_kid_6</bpmn2:outgoing>
     </bpmn2:task>
 <bpmn2:endEvent id="Event_kid_end" name="На хранении"><bpmn2:incoming>Flow_kid_6</bpmn2:incoming></bpmn2:endEvent>
-<bpmn2:sequenceFlow id="Flow_kid_1" sourceRef="Event_kid_start" targetRef="Activity_kid_create"/>
-<bpmn2:sequenceFlow id="Flow_kid_2" sourceRef="Activity_kid_create" targetRef="Activity_kid_take"/>
+<bpmn2:sequenceFlow id="Flow_kid_start_take" sourceRef="Event_kid_start" targetRef="Activity_kid_take"/>
 <bpmn2:sequenceFlow id="Flow_kid_3" sourceRef="Activity_kid_take" targetRef="Activity_kid_in_work"/>
 <bpmn2:sequenceFlow id="Flow_kid_4" sourceRef="Activity_kid_in_work" targetRef="Activity_kid_work"/>
 <bpmn2:sequenceFlow id="Flow_kid_5" sourceRef="Activity_kid_work" targetRef="Activity_kid_stored"/>

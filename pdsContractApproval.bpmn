@@ -23,38 +23,8 @@
     <bpmn2:property id="Element_pds_created_by" itemSubjectRef="Element_string" name="createdBy"/>
     <bpmn2:property id="Element_pds_created_at" itemSubjectRef="Element_string" name="createdAt"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
-      <bpmn2:outgoing>Flow_pds_start_create</bpmn2:outgoing>
+      <bpmn2:outgoing>Flow_pds_start_operator_take</bpmn2:outgoing>
     </bpmn2:startEvent>
-    <bpmn2:task id="Activity_pds_create" name="Зафиксировать договор ПДС" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">
-      <bpmn2:extensionElements>
-        <sbt:httpHeaderList>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_content_type" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Content-Type</sbt:name>
-            <sbt:value>application/json</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_create_accept" sbt:required="true" xsi:type="sbt:HTTPHeader">
-            <sbt:name>Accept</sbt:name>
-            <sbt:value>application/graphql-response+json</sbt:value>
-            <sbt:type><![CDATA[java.lang.String]]></sbt:type>
-            <sbt:source>expression</sbt:source>
-          </sbt:httpHeader>
-          <sbt:httpHeader sbt:id="HTTPHeader_pds_multi" sbt:required="true" xsi:type="sbt:HTTPHeader"><sbt:name>X-DSPC-multiaggregate</sbt:name><sbt:value>true</sbt:value><sbt:type><![CDATA[java.lang.String]]></sbt:type><sbt:source>expression</sbt:source></sbt:httpHeader>
-        </sbt:httpHeaderList>
-        <sbt:graphQLRequestBody>
-          <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createPdsContract($document: _CreateDocumentInput!, $input: _CreatePdsContractInput!) { packet { createDocument(input: $document) { id documentId documentType { id name } } createPdsContract(input: $input) { id status } } }]]></sbt:query>
-          <sbt:operationName>createPdsContract</sbt:operationName>
-          <sbt:variables><![CDATA[{ "document": { "documentId": ${documentId}, "documentType": "PDS_CONTRACT", "createdBy": ${createdBy}, "createdAt": ${createdAt} }, "input": { "document": "ref:createDocument", "contractNumber": ${contractNumber}, "contractDate": ${contractDate}, "snils": ${snils}, "status": "CREATED" } }]]></sbt:variables>
-        </sbt:graphQLRequestBody>
-        <sbt:graphQLResponseMapping>
-          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createPdsContract.id" sbt:id="Element_pds_map_id" sbt:variableName="id"/>
-          <sbt:mappingItem sbt:expression="@RESULT.data.packet.createDocument.documentType.name" sbt:id="Element_pds_map_document_type" sbt:variableName="documentType"/>
-        </sbt:graphQLResponseMapping>
-      </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_pds_start_create</bpmn2:incoming>
-      <bpmn2:outgoing>Flow_pds_create_operator_take</bpmn2:outgoing>
-    </bpmn2:task>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator_take" name="Взять договор ПДС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
         <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
@@ -368,8 +338,7 @@
     <bpmn2:endEvent id="Event_pds_rejected_end" name="Договор отклонен" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableEndEvent">
       <bpmn2:incoming>Flow_pds_rejected_end</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:sequenceFlow id="Flow_pds_start_create" name="" sourceRef="Event_pds_start" targetRef="Activity_pds_create"/>
-    <bpmn2:sequenceFlow id="Flow_pds_create_operator_take" name="Взять в работу" sourceRef="Activity_pds_create" targetRef="Gateway_19uqg3y"/>
+    <bpmn2:sequenceFlow id="Flow_pds_start_operator_take" name="Взять в работу" sourceRef="Event_pds_start" targetRef="Gateway_19uqg3y"/>
     <bpmn2:sequenceFlow id="Flow_pds_operator_take_mark_in_work" name="Взять в работу" sourceRef="Activity_pds_operator_take" targetRef="Activity_pds_mark_in_work">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "IN_WORK"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
