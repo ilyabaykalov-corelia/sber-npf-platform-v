@@ -96,7 +96,7 @@
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_kid_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
-      <bpmn2:incoming>Flow_kid_2</bpmn2:incoming>
+      <bpmn2:incoming>Flow_kid_start_take</bpmn2:incoming>
       <bpmn2:outgoing>Flow_kid_3</bpmn2:outgoing>
     </bpmn2:userTask>
 <bpmn2:task id="Activity_kid_in_work" name="Отметить КИД ОПС взятым в работу" sbt:apiSource="manual" sbt:buildingBlockId="" sbt:methodName="POST" sbt:outputMapping="expression" sbt:payloadType="map" sbt:retryPolicyModelDescription="" sbt:retryPolicyModelId="" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.GraphQLTask" sbt:sourceFile="" sbt:timeout="" sbt:url="${env.ds.app}/model/graphql">

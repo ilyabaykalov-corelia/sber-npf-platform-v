@@ -368,7 +368,7 @@
     <bpmn2:sequenceFlow id="Flow_pds_approved_end" name="" sourceRef="Activity_pds_mark_approved" targetRef="Event_pds_approved_end"/>
     <bpmn2:sequenceFlow id="Flow_pds_rejected_end" name="" sourceRef="Activity_pds_mark_rejected" targetRef="Event_pds_rejected_end"/>
     <bpmn2:exclusiveGateway default="Flow_05tbmkz" id="Gateway_19uqg3y" name="" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableExclusiveGateway">
-      <bpmn2:incoming>Flow_pds_create_operator_take</bpmn2:incoming>
+      <bpmn2:incoming>Flow_pds_start_operator_take</bpmn2:incoming>
       <bpmn2:incoming>Flow_pds_revision_operator_take</bpmn2:incoming>
       <bpmn2:outgoing>Flow_05tbmkz</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
