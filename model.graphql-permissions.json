@@ -44,14 +44,6 @@
     ]
   },
   {
-    "name": "createPdsContractWithAttachment",
-    "body": "mutation createPdsContractWithAttachment($document: _CreateDocumentInput!, $input: _CreatePdsContractInput!, $file: _CreateAttachmentInput!, $command: _CreateDocumentCommandInput!) { packet { createDocument(input: $document) { id documentId } createPdsContract(input: $input) { id status } createAttachment(input: $file) { id } createDocumentCommand(input: $command) { id } } }",
-    "checkForAnyPrivilege": [
-      "PdsContract:create",
-      "Attachment:create"
-    ]
-  },
-  {
     "name": "updatePdsContract",
     "body": "mutation updatePdsContract($input: _UpdatePdsContractInput!) { packet { updatePdsContract(input: $input) { id status } } }",
     "checkForAnyPrivilege": [
@@ -68,7 +60,7 @@
     ],
     "checkSelects": [
       {
-        "conditionValue": "it.document.documentId == ${input.documentId} && it.status == 'DRAFT' && it.document.createdBy == ${jwt:preferred_username}",
+        "conditionValue": "it.document.documentId == ${input.documentId} && it.status == 'CREATED' && it.document.createdBy == ${jwt:preferred_username}",
         "orderValue": "0",
         "typeName": "PdsContract",
         "description": "Only assigned operator can create attachments while document is in work"
@@ -202,7 +194,7 @@
   },
   {
     "name": "createKidOps",
-    "body": "mutation createKidOps($document: _CreateDocumentInput!, $input: _CreateKidOpsInput!, $file: _CreateAttachmentInput!, $command: _CreateDocumentCommandInput!) { packet { createDocument(input: $document) { id documentId documentType { id name } } createKidOps(input: $input) { id status } createAttachment(input: $file) { id } createDocumentCommand(input: $command) { id } } }",
+    "body": "mutation createKidOps($document: _CreateDocumentInput!, $input: _CreateKidOpsInput!, $command: _CreateDocumentCommandInput!) { packet { createDocument(input: $document) { id documentId documentType { id name } } createKidOps(input: $input) { id status } createDocumentCommand(input: $command) { id } } }",
     "checkForAnyPrivilege": [
       "KidOps:create"
     ]

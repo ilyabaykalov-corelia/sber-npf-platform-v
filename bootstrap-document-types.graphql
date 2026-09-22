@@ -1,0 +1,8 @@
+mutation upsertDocumentType($id: ID!, $name: String) {
+  dictionaryPacket {
+    updateOrCreateDocumentType(input: { id: $id, name: $name }) {
+      created
+      returning { id name }
+    }
+  }
+}
