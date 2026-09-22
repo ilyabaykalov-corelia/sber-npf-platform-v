@@ -40,6 +40,7 @@
             <sbt:type><![CDATA[java.lang.String]]></sbt:type>
             <sbt:source>expression</sbt:source>
           </sbt:httpHeader>
+          <sbt:httpHeader sbt:id="HTTPHeader_pds_multi" sbt:required="true" xsi:type="sbt:HTTPHeader"><sbt:name>X-DSPC-multiaggregate</sbt:name><sbt:value>true</sbt:value><sbt:type><![CDATA[java.lang.String]]></sbt:type><sbt:source>expression</sbt:source></sbt:httpHeader>
         </sbt:httpHeaderList>
         <sbt:graphQLRequestBody>
           <sbt:query sbt:required="true" sbt:type="literal"><![CDATA[mutation createPdsContract($document: _CreateDocumentInput!, $input: _CreatePdsContractInput!) { packet { createDocument(input: $document) { id documentId documentType { id name } } createPdsContract(input: $input) { id status } } }]]></sbt:query>
