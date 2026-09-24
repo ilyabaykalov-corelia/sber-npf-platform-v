@@ -14,7 +14,7 @@
     <bpmn2:property id="Property_kid_firstName" itemSubjectRef="Element_string" name="firstName"/>
     <bpmn2:property id="Property_kid_middleName" itemSubjectRef="Element_string" name="middleName"/>
     <bpmn2:property id="Property_kid_snils" itemSubjectRef="Element_string" name="snils"/>
-    <bpmn2:property id="Property_kid_approvalStatus" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Property_kid_status" itemSubjectRef="Element_string" name="status"/>
     <bpmn2:property id="Property_kid_createdBy" itemSubjectRef="Element_string" name="createdBy"/>
     <bpmn2:property id="Property_kid_createdAt" itemSubjectRef="Element_string" name="createdAt"/>
     <bpmn2:property id="Property_kid_assignee" itemSubjectRef="Element_string" name="assignee"/>
@@ -29,7 +29,7 @@
 <bpmn2:startEvent id="Event_kid_start" name="Создать КИД ОПС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent"><bpmn2:outgoing>Flow_kid_start_take</bpmn2:outgoing></bpmn2:startEvent>
 <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_kid_take" name="Взять КИД ОПС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"status":"IN_WORK"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_kid_operator_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -63,7 +63,7 @@
           </sbt:extraAttribute>
         <sbt:extraAttribute sbt:id="Element_kid_take_document_type" xsi:type="sbt:ExtraAttribute"><sbt:extraAttributeName>documentType</sbt:extraAttributeName><sbt:processVarName>documentType</sbt:processVarName><sbt:documentation/><sbt:type><![CDATA[STRING]]></sbt:type><sbt:code>documentType</sbt:code><sbt:visibility>visible</sbt:visibility><sbt:order>4</sbt:order><sbt:linked>false</sbt:linked></sbt:extraAttribute></sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_kid_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_kid_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_kid_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
@@ -97,7 +97,7 @@
     </bpmn2:task>
 <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_kid_work" name="Обработка КИД ОПС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Отправка на хранение","description":null,"editableParameter":null,"options":[{"label":"Отправить на хранение","result":{"approvalStatus":"STORED"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Отправка на хранение","description":null,"editableParameter":null,"options":[{"label":"Отправить на хранение","result":{"status":"STORED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_kid_operator_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -131,7 +131,7 @@
           </sbt:extraAttribute>
         <sbt:extraAttribute sbt:id="Element_kid_work_document_type" xsi:type="sbt:ExtraAttribute"><sbt:extraAttributeName>documentType</sbt:extraAttributeName><sbt:processVarName>documentType</sbt:processVarName><sbt:documentation/><sbt:type><![CDATA[STRING]]></sbt:type><sbt:code>documentType</sbt:code><sbt:visibility>visible</sbt:visibility><sbt:order>4</sbt:order><sbt:linked>false</sbt:linked></sbt:extraAttribute></sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_kid_operator_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_kid_operator_listener_status" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_kid_4</bpmn2:incoming>

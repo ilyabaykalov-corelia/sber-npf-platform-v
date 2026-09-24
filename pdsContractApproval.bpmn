@@ -19,7 +19,7 @@
     <bpmn2:property id="Element_pds_contract_number" itemSubjectRef="Element_string" name="contractNumber"/>
     <bpmn2:property id="Element_pds_contract_date" itemSubjectRef="Element_string" name="contractDate"/>
     <bpmn2:property id="Element_pds_snils" itemSubjectRef="Element_string" name="snils"/>
-    <bpmn2:property id="Element_pds_approval_status" itemSubjectRef="Element_string" name="approvalStatus"/>
+    <bpmn2:property id="Element_pds_status" itemSubjectRef="Element_string" name="status"/>
     <bpmn2:property id="Element_pds_created_by" itemSubjectRef="Element_string" name="createdBy"/>
     <bpmn2:property id="Element_pds_created_at" itemSubjectRef="Element_string" name="createdAt"/>
     <bpmn2:startEvent id="Event_pds_start" name="Создать договор ПДС" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableStartEvent">
@@ -27,7 +27,7 @@
     </bpmn2:startEvent>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator_take" name="Взять договор ПДС в работу оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"IN_WORK"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_budhtef">{"completions":{"title":"Взять в работу оператором","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"status":"IN_WORK"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_operator_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -61,7 +61,7 @@
           </sbt:extraAttribute>
         </sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_pds_operator_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_operator_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
@@ -70,7 +70,7 @@
     </bpmn2:userTask>
     <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="document_operator" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_operator" name="Обработка договора ПДС оператором" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Передача на согласование","description":null,"editableParameter":null,"options":[{"label":"Направить на согласование","result":{"approvalStatus":"ON_APPROVAL"}},{"label":"Отклонить","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_2m3gxb7">{"completions":{"title":"Передача на согласование","description":null,"editableParameter":null,"options":[{"label":"Направить на согласование","result":{"status":"ON_APPROVAL"}},{"label":"Отклонить","result":{"status":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_operator_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -104,7 +104,7 @@
           </sbt:extraAttribute>
         </sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_operator_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_pds_operator_listener_status" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_in_work_operator</bpmn2:incoming>
@@ -117,7 +117,7 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask activiti:assignee="" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver_take" name="Взять договор ПДС в работу согласующим" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"approvalStatus":"ON_APPROVAL"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_9v156qp">{"completions":{"title":"Взять в работу согласующим","description":null,"editableParameter":"assignee","options":[{"label":"Взять в работу","result":{"status":"ON_APPROVAL"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_approver_take_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -151,7 +151,7 @@
           </sbt:extraAttribute>
         </sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_take_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_pds_approver_take_listener_status" xsi:type="sbt:TaskListener"/>
           <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('assignee',assignee)};" sbt:id="Element_pds_approver_take_listener_assignee" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
@@ -160,7 +160,7 @@
     </bpmn2:userTask>
     <bpmn2:userTask activiti:assignee="${assignee}" activiti:candidateGroups="approver" activiti:dueDate="PT1H" activiti:formKey="" activiti:priority="99" id="Activity_pds_approver" name="Согласование договора ПДС" sbt:excludedUsers="" sbt:formType="quickTask" sbt:managerRole="app_owner" sbt:marker.type="Markable" sbt:sbtType="com.sbt.bpms.modeler.plugin.marker.markableUserTask">
       <bpmn2:extensionElements>
-        <sbt:externalDescription sbt:id="Element_ebhp88r">{"completions":{"title":"Согласование документа","description":null,"editableParameter":null,"options":[{"label":"Согласовать","result":{"approvalStatus":"APPROVED"}},{"label":"Отправить на доработку","result":{"approvalStatus":"NEEDS_REVISION"}},{"label":"Отклонить","result":{"approvalStatus":"REJECTED"}}]}}</sbt:externalDescription>
+        <sbt:externalDescription sbt:id="Element_ebhp88r">{"completions":{"title":"Согласование документа","description":null,"editableParameter":null,"options":[{"label":"Согласовать","result":{"status":"APPROVED"}},{"label":"Отправить на доработку","result":{"status":"NEEDS_REVISION"}},{"label":"Отклонить","result":{"status":"REJECTED"}}]}}</sbt:externalDescription>
         <sbt:extraAttributes>
           <sbt:extraAttribute sbt:id="Element_pds_approver_extra_document_id" xsi:type="sbt:ExtraAttribute">
             <sbt:extraAttributeName>documentId</sbt:extraAttributeName>
@@ -194,7 +194,7 @@
           </sbt:extraAttribute>
         </sbt:extraAttributes>
         <sbt:taskListenerList>
-          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('approvalStatus',approvalStatus)};" sbt:id="Element_pds_approver_listener_status" xsi:type="sbt:TaskListener"/>
+          <sbt:taskListener sbt:event="complete" sbt:expression="#{execution.setVariable('status',status)};" sbt:id="Element_pds_approver_listener_status" xsi:type="sbt:TaskListener"/>
         </sbt:taskListenerList>
       </bpmn2:extensionElements>
       <bpmn2:incoming>Flow_pds_approver_take_approver</bpmn2:incoming>
@@ -340,29 +340,29 @@
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="Flow_pds_start_operator_take" name="Взять в работу" sourceRef="Event_pds_start" targetRef="Gateway_19uqg3y"/>
     <bpmn2:sequenceFlow id="Flow_pds_operator_take_mark_in_work" name="Взять в работу" sourceRef="Activity_pds_operator_take" targetRef="Activity_pds_mark_in_work">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "IN_WORK"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "IN_WORK"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_operator_gateway" name="" sourceRef="Activity_pds_operator" targetRef="Gateway_pds_operator_result"/>
     <bpmn2:sequenceFlow id="Flow_pds_operator_to_approval" name="Отправить на согласование" sourceRef="Gateway_pds_operator_result" targetRef="Activity_pds_mark_on_approval">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "ON_APPROVAL"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "ON_APPROVAL"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_operator_reject" name="Отклонить" sourceRef="Gateway_pds_operator_result" targetRef="Activity_pds_mark_rejected">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "REJECTED"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "REJECTED"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_in_work_operator" name="" sourceRef="Activity_pds_mark_in_work" targetRef="Activity_pds_operator"/>
     <bpmn2:sequenceFlow id="Flow_pds_on_approval_approver_take" name="Взять в работу" sourceRef="Activity_pds_mark_on_approval" targetRef="Activity_pds_approver_take"/>
     <bpmn2:sequenceFlow id="Flow_pds_approver_take_approver" name="Взять в работу" sourceRef="Activity_pds_approver_take" targetRef="Activity_pds_approver">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "ON_APPROVAL"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "ON_APPROVAL"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_approver_gateway" name="" sourceRef="Activity_pds_approver" targetRef="Gateway_pds_approver_result"/>
     <bpmn2:sequenceFlow id="Flow_pds_approver_revision" name="Отправить на доработку" sourceRef="Gateway_pds_approver_result" targetRef="Activity_pds_mark_revision">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "NEEDS_REVISION"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "NEEDS_REVISION"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_approver_approve" name="Согласовать" sourceRef="Gateway_pds_approver_result" targetRef="Activity_pds_mark_approved">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "APPROVED"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "APPROVED"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_approver_reject" name="Отклонить" sourceRef="Gateway_pds_approver_result" targetRef="Activity_pds_mark_rejected">
-      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("approvalStatus") == "REJECTED"}</bpmn2:conditionExpression>
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${execution.getVariable("status") == "REJECTED"}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
     <bpmn2:sequenceFlow id="Flow_pds_revision_operator_take" name="Взять в работу" sourceRef="Activity_pds_mark_revision" targetRef="Gateway_19uqg3y"/>
     <bpmn2:sequenceFlow id="Flow_pds_approved_end" name="" sourceRef="Activity_pds_mark_approved" targetRef="Event_pds_approved_end"/>
@@ -524,6 +524,13 @@
       <bpmndi:BPMNEdge bpmnElement="Flow_pds_rejected_end" id="Flow_pds_rejected_end_di">
         <di:waypoint x="2617" y="255"/>
         <di:waypoint x="2677" y="255"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_pds_start_operator_take" id="Flow_pds_start_operator_take_di">
+        <di:waypoint x="-112" y="178"/>
+        <di:waypoint x="205" y="178"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="14" width="77" x="8" y="153"/>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="Flow_05tbmkz" id="Flow_05tbmkz_di">
         <di:waypoint x="255" y="178"/>
