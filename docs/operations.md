@@ -35,7 +35,12 @@ PlatformStub не заменяет SDK-генератор и BPM-движок. �
 
 ## Справочники
 
-DocumentType и DocumentProcessSettings публикуются GraphQL-запросами через конструктор Platform V. Legacy seed-скрипт и локальная папка с его данными удалены.
+DocumentType и DocumentProcessSettings публикуются GraphQL-запросами через конструктор Platform V.
+Сразу после публикации модели выполните
+[`../bootstrap-document-types.graphql`](../bootstrap-document-types.graphql) от имени `app_owner`.
+Выполните зарегистрированную операцию `upsertDocumentType` отдельно для `PDS_CONTRACT`
+и `KID_OPS`, передав `id` и `name` через variables. До этого шага создание документа невозможно: поле
+`Document.documentType` — внешний ключ на `DocumentType`.
 
 ## LCUI и диагностика
 
