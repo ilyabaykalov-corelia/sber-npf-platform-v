@@ -35,7 +35,7 @@ DocumentVersion имеет уникальный индекс по document/versi
 
 Permissions содержат полные тела операций и требования привилегий. Среди операций — справочники, поиск, создание через BPMN, изменение статусов и команды снимков. Ресурсы Corelia находятся в соседнем corelia/corelia-platform-v/src/main/resources/graphql; независимая фикстура — corelia/corelia-system-tests/src/test/resources/platform-v/allowed-requests.json.
 
-commitDocumentAttributes и commitKidOpsAttributes объединяют сравнение ожидаемого состояния, обновление реквизитов, создание снимка, закрытие предыдущего и запись результата команды. commitDocumentNoChange фиксирует результат без новой версии. commitDocumentFileUpload/Replace/Delete проверяют ожидаемое состояние, фиксируют метаданные вложений, создают новый снимок и закрывают предыдущий в одной операции. initializeDocumentVersion создаёт первый снимок.
+commitDocumentAttributes и commitKidOpsAttributes объединяют сравнение ожидаемого состояния, обновление реквизитов, создание снимка, закрытие предыдущего и запись результата команды. commitDocumentNoChange фиксирует результат без новой версии. commitDocumentFileUpload/Replace/Delete проверяют ожидаемое состояние и фиксируют метаданные вложений вместе с результатом команды, не создавая новую версию документа. initializeDocumentVersion создаёт первый снимок.
 
 Пакет хранилища — транзакционная граница. DAM и BPM не включаются в эту транзакцию. Совпадение текстов запросов с фикстурой не доказывает исполнение реальных permissions или генерацию модели SDK.
 
