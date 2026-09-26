@@ -24,7 +24,7 @@
 | PdsContract | parent-ссылка document с unique, дата/номер договора, СНИЛС, status |
 | KidOps | parent-ссылка document с unique, дата/номер, год подписания, ФИО, СНИЛС, status |
 | DocumentVersion | parent document, индекс documentId, version, schemaVersion, JSON attributes/attachments в Text, автор, даты создания и закрытия |
-| DocumentCommand | parent document, уникальный commandKey, requestHash, JSON response |
+| DocumentCommand | parent document, уникальный commandKey, requestHash, JSON response и JSON события истории |
 | Attachment | attachmentId, logicalAttachmentId, строковый documentId, имя, MIME, размер, storageReference, version, current, uploadedAt |
 
 DocumentVersion имеет уникальный индекс по document/version. Обратные связи Document задаются mappedBy. Это прикладные снимки, а не встроенная historization DataSpace. Attachment — самостоятельная сущность со строковой ссылкой на владельца; согласованность состава обеспечивает ядро. В модели attachmentId не помечен unique: нельзя описывать его как уже имеющееся ограничение DataSpace.
@@ -35,7 +35,7 @@ DocumentVersion имеет уникальный индекс по document/versi
 
 Permissions содержат полные тела операций и требования привилегий. Среди операций — справочники, поиск, создание через BPMN, изменение статусов и команды снимков. Ресурсы Corelia находятся в соседнем corelia/corelia-platform-v/src/main/resources/graphql; независимая фикстура — corelia/corelia-system-tests/src/test/resources/platform-v/allowed-requests.json.
 
-commitDocumentAttributes и commitKidOpsAttributes объединяют сравнение ожидаемого состояния, обновление реквизитов, создание снимка, закрытие предыдущего и запись результата команды. commitDocumentNoChange фиксирует результат без новой версии. commitDocumentFileUpload/Replace/Delete меняют текущий состав и метаданные с проверкой состояния. initializeDocumentVersion создаёт первый снимок.
+commitDocumentAttributes и commitKidOpsAttributes объединяют сравнение ожидаемого состояния, обновление реквизитов, создание снимка, закрытие предыдущего и запись результата команды. commitDocumentNoChange фиксирует результат без новой версии. commitDocumentFileUpload/Replace/Delete проверяют ожидаемое состояние и фиксируют метаданные вложений вместе с результатом команды, не создавая новую версию документа. initializeDocumentVersion создаёт первый снимок.
 
 Пакет хранилища — транзакционная граница. DAM и BPM не включаются в эту транзакцию. Совпадение текстов запросов с фикстурой не доказывает исполнение реальных permissions или генерацию модели SDK.
 

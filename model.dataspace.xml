@@ -68,6 +68,7 @@
     <property name="commandKey" type="STRING" length="64" unique="true"/>
     <property name="requestHash" type="STRING" length="64"/>
     <property name="response" type="Text"/>
+    <property name="history" type="Text"/>
   </class>
   <class name="Attachment" strategy="JOINED">
     <property name="attachmentId" type="STRING" length="36"/>
